@@ -29,7 +29,12 @@ namespace Trabalho3C.A
         public void ExibirExtrato()
         {
             Console.WriteLine($"\n-- CONTA #{numero} --");
+            Console.WriteLine("---------------------");
+            Console.WriteLine("- MOVIMENTACOES -");
+
+            Console.WriteLine("---------------------");
             Console.WriteLine($"Saldo: {saldo}");
+            Console.WriteLine("---------------------");
             Console.ReadLine();
         }
     }
