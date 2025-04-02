@@ -32,10 +32,10 @@
 
             conta2.movimentacoes = new Movimentacao[10];
 
-            conta1.TransferirPara(400);
+            conta1.TransferirPara(conta2, 400);
 
-            conta1.ExibirExtrato);
-
+            conta1.ExibirExtrato();
+            Console.WriteLine();
             conta2.ExibirExtrato();
         }
     }

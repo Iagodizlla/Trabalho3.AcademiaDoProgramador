@@ -11,6 +11,26 @@ namespace Trabalho3C.A
         public int numero { get; set; }
         public double saldo { get; set; }
         public double limite { get; set; }
+        public Movimentacao[] movimentacoes { get; set; }
+
+        public void Sacar(double n)
+        {
+            saldo -= n;
+        }
+        public void Depositar(double n)
+        {
+            saldo += n;
+        }
+        public void TransferirPara(ContaCorrente c, double n)
+        {
+            saldo -= n;
+            c.saldo += n;
+        }
+        public void ExibirExtrato()
+        {
+            Console.WriteLine($"\n-- CONTA #{numero} --");
+            Console.WriteLine($"Saldo: {saldo}");
+            Console.ReadLine();
         }
     }
 }
