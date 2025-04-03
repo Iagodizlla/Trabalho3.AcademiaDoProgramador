@@ -1,41 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Trabalho3C.A
+﻿namespace Trabalho3C.A
 {
-    internal class ContaCorrente
+    public class ContaCorrente
     {
-        public int numero { get; set; }
-        public double saldo { get; set; }
-        public double limite { get; set; }
-        public Movimentacao[] movimentacoes { get; set; }
-
-        public void Sacar(double n)
+        #region Atributos
+        public int Numero { get; set; }
+        public double Saldo { get; set; }
+        public double Limite { get; set; }
+        public Movimentacao[] movimentacoes;
+        public int IndiceMovimentacao = 0;
+        public ContaCorrente(int numero, double saldoInicial, double limite)
         {
-            saldo -= n;
+            Numero = numero;
+            Saldo = saldoInicial;
+            Limite = limite;
+            movimentacoes = new Movimentacao[10];
         }
-        public void Depositar(double n)
+        #endregion
+        #region Metodos
+        public void Sacar(double valor)
         {
-            saldo += n;
+            Saldo -= valor;
+            AdicionarMovimentacao("Saque", valor);
         }
-        public void TransferirPara(ContaCorrente c, double n)
+        public void Depositar(double valor)
         {
-            saldo -= n;
-            c.saldo += n;
+            Saldo += valor;
+            AdicionarMovimentacao("Depósito", valor);
+        }
+        public void TransferirPara(ContaCorrente destino, double valor)
+        {
+            Sacar(valor);
+            destino.Depositar(valor);
+        }
+        public void AdicionarMovimentacao(string tipo, double valor)
+        {
+                movimentacoes[IndiceMovimentacao] = new Movimentacao(tipo, valor);
+                IndiceMovimentacao++;
         }
         public void ExibirExtrato()
         {
-            Console.WriteLine($"\n-- CONTA #{numero} --");
-            Console.WriteLine("---------------------");
-            Console.WriteLine("- MOVIMENTACOES -");
-
-            Console.WriteLine("---------------------");
-            Console.WriteLine($"Saldo: {saldo}");
-            Console.WriteLine("---------------------");
+            Console.WriteLine($"\n--- EXTRATO DA CONTA #{Numero} ---");
+            Console.WriteLine("------ Movimentações: ------");
+            for (int i = 0; i < IndiceMovimentacao; i++)
+            {
+                Console.WriteLine(movimentacoes[i]);
+            }
+            Console.WriteLine($"Saldo Atual: {Saldo:F2}\n");
             Console.ReadLine();
         }
+        #endregion
     }
 }
